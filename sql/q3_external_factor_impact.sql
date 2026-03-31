@@ -42,6 +42,7 @@ SELECT
     ), 2) AS corr_sales_unemployment
 FROM copy_sales 
 GROUP BY Store;
+
 /* REMARKS:
 - There's not a significant correlation between any store's sales and the outdoor temperature.
 - The correlation coefficients do not explain every store, but some stores' stories can be told coherently. 
@@ -76,41 +77,3 @@ GROUP BY Store;
     Their overall rankings are low due to their total sales being low. 
     => They have high potentials to become bigger with their current strategies.
 */
-WITH corr_table AS (
-    SELECT
-        Store, 
-        -- Weekly_Sales vs Temperature
-        ROUND((AVG(Weekly_Sales * Temperature)
-        - AVG(Weekly_Sales) * AVG(Temperature))
-        /
-        (sqrt(AVG(Weekly_Sales * Weekly_Sales) - AVG(Weekly_Sales) * AVG(Weekly_Sales))
-        * 
-        sqrt(AVG(Temperature * Temperature) - AVG(Temperature) * AVG(Temperature))
-        ), 2) AS corr_sales_temp,
-        -- Weekly_Sales vs Fuel Price
-        ROUND((AVG(Weekly_Sales * Fuel_Price)
-        - AVG(Weekly_Sales) * AVG(Fuel_Price))
-        /
-        (sqrt(AVG(Weekly_Sales * Weekly_Sales) - AVG(Weekly_Sales) * AVG(Weekly_Sales))
-        * 
-        sqrt(AVG(Fuel_Price * Fuel_Price) - AVG(Fuel_Price) * AVG(Fuel_Price))
-        ), 2) AS corr_sales_fuel,
-        -- Weekly_Sales vs CPI
-        ROUND((AVG(Weekly_Sales * CPI)
-        - AVG(Weekly_Sales) * AVG(CPI))
-        /
-        (sqrt(AVG(Weekly_Sales * Weekly_Sales) - AVG(Weekly_Sales) * AVG(Weekly_Sales))
-        * 
-        sqrt(AVG(CPI * CPI) - AVG(CPI) * AVG(CPI))
-        ), 2) AS corr_sales_cpi,
-        -- Weekly_Sales vs Unemployment
-        ROUND((AVG(Weekly_Sales * Unemployment)
-        - AVG(Weekly_Sales) * AVG(Unemployment))
-        /
-        (sqrt(AVG(Weekly_Sales * Weekly_Sales) - AVG(Weekly_Sales) * AVG(Weekly_Sales))
-        * 
-        sqrt(AVG(Unemployment * Unemployment) - AVG(Unemployment) * AVG(Unemployment))
-        ), 2) AS corr_sales_unemployment
-    FROM copy_sales 
-    GROUP BY Store    
-) SELECT
