@@ -45,7 +45,7 @@ GROUP BY Store;
 /* REMARKS:
 - There's not a significant correlation between any store's sales and the outdoor temperature.
 - The correlation coefficients do not explain every store, but some stores' stories can be told coherently. 
-- Combining with the performance ranking, growth ranking and overall rankings, one 
+- Combining with the performance ranking, growth ranking and overall rankings, one can learn about stores' overall performance over the year. 
 */
 
 /* Worst performance and growth - STORE 36'S REMARKS:
